@@ -1,0 +1,25 @@
+{
+  "name": "html5-tuto-overlay",
+  "version": "0.0.1",
+  "homepage": "https://github.com/matthis-perrin/html5-tuto-overlay",
+  "authors": [
+    "Matthis <matthis.perrin@gmail.com>"
+  ],
+  "description": "A HTML5 overlay to easily create a demo or tutorial overlay over a web application",
+  "main": "main.js",
+  "keywords": [
+    "html5",
+    "overlay",
+    "demo",
+    "tuto",
+    "tutorial"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
