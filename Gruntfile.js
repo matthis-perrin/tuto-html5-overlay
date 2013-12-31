@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     watch: {
       build: {
         files: ['<%= yeoman.app %>/{,*/}*.coffee'],
-        tasks: ['build', 'livereload']
+        tasks: ['clean:dist', 'coffee', 'concat', 'livereload']
       },
       reload: {
         files: ['<%= yeoman.testApp %>/{,*/}*'],

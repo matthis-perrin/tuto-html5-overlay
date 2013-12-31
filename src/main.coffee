@@ -21,7 +21,8 @@ resizeCanvas = () ->
 
 draw = (ctx) ->
   drawOverlay ctx
-  drawOval ctx, can.width / 2, can.height / 2, can.width / 3, can.height / 3
+  drawEllipseAroundComponent ctx, 'title'
+  drawEllipseAroundComponent ctx, 'menu'
 
 drawOverlay = (ctx) ->
   ctx.save()
@@ -29,13 +30,22 @@ drawOverlay = (ctx) ->
   ctx.fillRect 0, 0, can.width, can.height
   ctx.restore()
 
-drawOval = (ctx, x, y, width, height) ->
+drawEllipseAroundComponent = (ctx, id) ->
+  component = $('#' + id)
+  offset = component.offset();
+  x = offset.left - $(window).scrollLeft();
+  y = offset.top - $(window).scrollTop();
+  width = component.innerWidth()
+  height = component.innerHeight()
+  drawEllipse ctx, x + width / 2, y + height / 2, 2 * width / Math.sqrt(2), 2 * height / Math.sqrt(2)
+
+drawEllipse = (ctx, x, y, width, height) ->
   ctx.save()
   ctx.globalCompositeOperation = 'destination-out'
   ctx.translate x, y
   ctx.scale width, height
   ctx.beginPath()
-  ctx.arc 0, 0, 1, 0, 2 * Math.PI, false
+  ctx.arc 0, 0, 0.5, 0, 2 * Math.PI, false
   ctx.fill()
   ctx.restore()
 
