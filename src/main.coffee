@@ -1,8 +1,7 @@
 id = 82764
-overlayColor = '#000000'
-overlayOpacity = 0.5
+overlayColor = 'rgba(0, 0, 0, 0.85)'
 
-canvas = $('<canvas/>', {
+can = $('<canvas/>', {
   id: id,
 })
 .appendTo('body')
@@ -13,14 +12,20 @@ canvas = $('<canvas/>', {
   'left': 0,
   'z-index': 16232
 })[0]
+ctx = can.getContext('2d')
 
 resizeCanvas = () ->
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
-  drawCanvas()
+  can.width = window.innerWidth
+  can.height = window.innerHeight
+  draw(ctx)
 
-drawCanvas = () ->
-  console.log 'Test'
+draw = (ctx) ->
+  drawOverlay ctx
+
+drawOverlay = (ctx) ->
+  ctx.fillStyle = overlayColor
+  ctx.fillRect(0, 0, can.width, can.height)
+
 
 resizeCanvas()
 window.addEventListener('resize', resizeCanvas, false)
