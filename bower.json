@@ -21,5 +21,12 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "coffee-script": "~1.6.3",
+    "bootstrap": "~3.0.3"
+  },
+  "dependencies": {
+    "jquery": "~2.0.3"
+  }
 }
