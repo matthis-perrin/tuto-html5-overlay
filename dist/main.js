@@ -1,5 +1,5 @@
 (function() {
-  var can, ctx, draw, drawEllipse, drawEllipseAroundComponent, drawOverlay, id, overlayColor, resizeCanvas;
+  var can, ctx, draw, drawEllipse, drawEllipseAroundComponent, drawOverlay, id, overlayColor, resizeCanvas, testEllipseWidth;
 
   id = 82764;
 
@@ -37,14 +37,38 @@
   };
 
   drawEllipseAroundComponent = function(ctx, id) {
-    var component, height, offset, width, x, y;
+    var component, h, height, offset, w, width, width1, width2, width3, x, y;
     component = $('#' + id);
     offset = component.offset();
     x = offset.left - $(window).scrollLeft();
     y = offset.top - $(window).scrollTop();
-    width = component.innerWidth();
-    height = component.innerHeight();
-    return drawEllipse(ctx, x + width / 2, y + height / 2, 2 * width / Math.sqrt(2), 2 * height / Math.sqrt(2));
+    w = component.innerWidth();
+    h = component.innerHeight();
+    width1 = 0.5 * w;
+    width2 = width1 * 2;
+    while (testEllipseWidth(width2 > 1)) {
+      width2 = width2 * 2;
+    }
+    while (width2 - width1 > 1) {
+      width3 = Math.round((width1 + width2) / 2);
+      if ((testEllipseWidth(width3, w, h)) > 1) {
+        width1 = width3;
+      } else {
+        width2 = width3;
+      }
+    }
+    if (1 - (testEllipseWidth(width2, w, h)) > 1 - (testEllipseWidth(width1, w, h))) {
+      width = width1;
+    } else {
+      width = width2;
+    }
+    width *= 2;
+    height = width - w + h;
+    return drawEllipse(ctx, x + w / 2, y + h / 2, width, height);
+  };
+
+  testEllipseWidth = function(ellipseWidth, rectWidth, rectHeight) {
+    return rectWidth * rectWidth / (4 * ellipseWidth * ellipseWidth) + rectHeight * rectHeight / ((2 * ellipseWidth + rectHeight - rectWidth) * (2 * ellipseWidth + rectHeight - rectWidth));
   };
 
   drawEllipse = function(ctx, x, y, width, height) {
