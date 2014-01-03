@@ -1,1 +1,2 @@
 Overlay.init();
+Overlay.init();

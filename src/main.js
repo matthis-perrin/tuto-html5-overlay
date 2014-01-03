@@ -21,10 +21,20 @@ Overlay.Shapes = {};
 
   // Initialise the canvas
   this.init = function () {
+    // Do not initialize if it was already done
+    if ($('#' + id).length !== 0) {
+      return;
+    }
+
+    // Create the canvas element
     can = $('<canvas/>', {
       id: id,
     })
+
+    // Append element to the body
     .appendTo('body')
+
+    // Customize the canvas
     .css({
       'display': 'block',
       'position': 'fixed',
@@ -32,8 +42,14 @@ Overlay.Shapes = {};
       'left': 0,
       'z-index': 16232
     })[0];
+
+    // Get the canvas context
     ctx = can.getContext('2d');
+
+    // Resize and redraw the canvas
     this.refresh();
+
+    // Refresh the canvas everytime the window is resized
     window.addEventListener('resize', this.refresh, false);
   };
 
