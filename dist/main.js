@@ -12,6 +12,8 @@ Overlay.Shapes = {};
   var overlayColor = 'rgba(0, 0, 0, 0.70)'; // overlay color and alpha
   var Shapes = Overlay.Shapes; // alias
 
+  var elements = [] // list of all highlighted elements
+
   // ------------------------------------------------------------------------------------
 
 
@@ -61,6 +63,13 @@ Overlay.Shapes = {};
     draw(ctx);
   };
 
+
+  // Add an element to the list of elements to highlight
+  this.add = function (element) {
+    elements.push(element);
+    this.refresh();
+  }
+
   // ------------------------------------------------------------------------------------
 
 
@@ -71,8 +80,9 @@ Overlay.Shapes = {};
   // Launch all the drawing operations
   function draw (ctx) {
     drawOverlay(ctx);
-    drawShape(Shapes.Ellipse, ctx, 'btn2', {type: 'normal'});
-    drawShape(Shapes.Ellipse, ctx, 'btn4', {type: 'proportional'});
+    for (var i = 0; i < elements.length; i++) {
+      drawShape(Shapes.Ellipse, ctx, elements[i], {type: 'normal'});
+    }
   }
 
 
