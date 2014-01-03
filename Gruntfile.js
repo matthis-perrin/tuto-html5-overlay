@@ -19,8 +19,8 @@ module.exports = function (grunt) {
     yeoman: yeomanConfig,
     watch: {
       build: {
-        files: ['<%= yeoman.app %>/{,*/}*.coffee'],
-        tasks: ['clean:dist', 'coffee', 'concat', 'livereload']
+        files: ['<%= yeoman.app %>/{,*/}*.js'],
+        tasks: ['build', 'livereload']
       },
       reload: {
         files: ['<%= yeoman.testApp %>/{,*/}*'],
@@ -62,22 +62,12 @@ module.exports = function (grunt) {
         }]
       }
     },
-    coffee: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: '{,*/}*.coffee',
-          dest: '.tmp',
-          ext: '.js'
-        }]
-      }
-    },
     concat: {
       dist: {
         files: {
           '<%= yeoman.dist %>/main.js': [
-            '.tmp/{,*/}*.js'
+            'src/main.js',
+            'src/ellipse.js'
           ]
         }
       }
@@ -85,7 +75,7 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/main.js': [
+          '<%= yeoman.dist %>/main.min.js': [
             '<%= yeoman.dist %>/main.js'
           ]
         }
@@ -105,7 +95,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'coffee',
     'concat',
     'uglify'
   ]);
