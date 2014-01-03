@@ -3,12 +3,23 @@ Overlay.Shapes = {};
 
 (function() {
 
-  var id = 82764;
-  var ctx;
-  var can;
-  var overlayColor = 'rgba(0, 0, 0, 0.70)';
-  var Shapes = Overlay.Shapes;
 
+  // ----------------------- Private static variables declaration -----------------------
+
+  var id = 82764; // id used for the canvas tag
+  var can; // canvas object
+  var ctx; // canvas drawing context
+  var overlayColor = 'rgba(0, 0, 0, 0.70)'; // overlay color and alpha
+  var Shapes = Overlay.Shapes; // alias
+
+  // ------------------------------------------------------------------------------------
+
+
+
+
+  // ---------------------------------- Public methods ----------------------------------
+
+  // Initialise the canvas
   this.init = function () {
     can = $('<canvas/>', {
       id: id,
@@ -26,18 +37,30 @@ Overlay.Shapes = {};
     window.addEventListener('resize', this.refresh, false);
   };
 
+
+  // Resize and redraw the canvas
   this.refresh = function () {
     can.width = window.innerWidth;
     can.height = window.innerHeight;
     draw(ctx);
   };
 
+  // ------------------------------------------------------------------------------------
+
+
+
+
+  // --------------------------------- Private methods ----------------------------------
+
+  // Launch all the drawing operations
   function draw (ctx) {
     drawOverlay(ctx);
     drawShape(Shapes.Ellipse, ctx, 'btn2', {type: 'normal'});
     drawShape(Shapes.Ellipse, ctx, 'btn4', {type: 'proportional'});
   }
 
+
+  // Draw a shape around an html element
   function drawShape (shape, ctx, id, config) {
     component = $('#' + id)
     offset = component.offset();
@@ -49,12 +72,16 @@ Overlay.Shapes = {};
     shape.draw(ctx, config, x, y, w, h);
   }
 
+
+  // Draw the overlay
   function drawOverlay (ctx) {
     ctx.save();
     ctx.fillStyle = overlayColor;
     ctx.fillRect(0, 0, can.width, can.height);
     ctx.restore();
   }
+
+  // ------------------------------------------------------------------------------------
 
 
 }).call(Overlay);
