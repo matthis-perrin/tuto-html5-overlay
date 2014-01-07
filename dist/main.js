@@ -66,6 +66,12 @@ Overlay.Shapes = {};
 
   // Add an element to the list of elements to highlight
   this.add = function (element) {
+    if (Object.prototype.toString.call(element) === '[object String]') {
+      element = {
+        id: element,
+        padding: 0
+      }
+    }
     elements.push(element);
     this.refresh();
   }
@@ -87,13 +93,13 @@ Overlay.Shapes = {};
 
 
   // Draw a shape around an html element
-  function drawShape (shape, ctx, id, config) {
-    component = $('#' + id)
+  function drawShape (shape, ctx, element, config) {
+    component = $('#' + element.id)
     offset = component.offset();
-    x = offset.left - $(window).scrollLeft();
-    y = offset.top - $(window).scrollTop();
-    w = component.innerWidth()
-    h = component.innerHeight()
+    x = offset.left - $(window).scrollLeft() - element.padding;
+    y = offset.top - $(window).scrollTop() - element.padding;
+    w = component.innerWidth() + 2 * element.padding
+    h = component.innerHeight() + 2 * element.padding
 
     shape.draw(ctx, config, x, y, w, h);
   }
