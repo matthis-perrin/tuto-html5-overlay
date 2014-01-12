@@ -83,7 +83,7 @@ Overlay.Shapes = {};
 
   // --------------------------------- Private methods ----------------------------------
 
-  // Launch all the drawing operations
+  // Perform all the drawing operations
   function draw (ctx) {
     drawOverlay(ctx);
     for (var i = 0; i < elements.length; i++) {
